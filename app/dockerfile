@@ -15,10 +15,12 @@ WORKDIR /app
 # Copiar arquivos e instalar dependências
 COPY package*.json ./
 RUN npm install
-COPY . .
+
+# Instalar o nodemon globalmente
+RUN npm install -g nodemon
 
 # Expor porta
 EXPOSE 3000
 
 # Comando padrão do container (será sobrescrito no compose)
-CMD ["node", "app.js"]
+CMD ["npm", "run", "start"] 

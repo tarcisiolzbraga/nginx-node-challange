@@ -4,7 +4,7 @@
   "description": "Node.js app with MySQL",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",

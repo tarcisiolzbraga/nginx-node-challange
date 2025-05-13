@@ -25,9 +25,12 @@ services:
       - DB_PASSWORD=rootpassword
       - DB_NAME=nodedb
     entrypoint: >
-      dockerize -wait tcp://mysql-db:3306 -timeout 30s
-      node app.js
+      dockerize -wait tcp://mysql-db:3306 -timeout 30s --
+      npm run start
     tty: true
+    volumes:
+      - ./app:/app
+      - /app/node_modules
     networks:
       - app-network
 
