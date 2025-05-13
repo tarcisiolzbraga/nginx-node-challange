@@ -1,0 +1,24 @@
+FROM node:18-alpine
+
+# Instalar wget
+RUN apk add --no-cache wget
+
+# Instalar Dockerize
+ENV DOCKERIZE_VERSION v0.6.1
+RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+
+# Criar diretório da app
+WORKDIR /app
+
+# Copiar arquivos e instalar dependências
+COPY package*.json ./
+RUN npm install
+COPY . .
+
+# Expor porta
+EXPOSE 3000
+
+# Comando padrão do container (será sobrescrito no compose)
+CMD ["node", "app.js"]
